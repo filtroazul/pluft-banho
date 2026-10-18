@@ -397,6 +397,16 @@
     applyDress();
   }
 
+  /* o engine chama isto quando a janela muda de tamanho (girar o celular, barra do navegador) */
+  E.onLayout = function () {
+    const sala = Wd.current();
+    if (sala === 'banheiro') pl.y = L.floor + 20;
+    else if (sala === 'camarim') {
+      pl.y = L.bench - 2;
+      for (const it of G.drags) if (it.slot != null) { it.hx = 48 + it.slot * 66; it.hy = IY(); if (it.state === 'idle') { it.x = it.hx; it.y = it.hy; } }
+    }
+  };
+
   async function enterCam() {
     await E.enter('camarim', {
       x: CX, s: 1.05, base: 'idle',
@@ -418,7 +428,7 @@
     let equipped = 0;
     ORDEM.forEach((kind, i) => {
       E.addDrag({
-        x: 48 + i * 66, y: IY(), r: 30, target: chestOf,
+        x: 48 + i * 66, y: IY(), r: 30, slot: i, target: chestOf,
         draw(c) { ITEMS[kind](c); },
         onDone() {
           ST.eq[kind] = true; equipped++;
@@ -460,7 +470,14 @@
     const m = ST.mir; if (!m || m.t <= 0.001) return;
     const e = P.easeInOut(m.t), H = L.H;
     const hx = pl.x + 22 * pl.s, hy = pl.y - 92 * pl.s;
-    const cx = hx + (CX - hx) * e, cy = hy + (H * 0.6 - hy) * e, rx = 24 + 92 * e, ry = 30 + 122 * e;
+    let cx = hx + (CX - hx) * e, cy = hy + (H * 0.6 - hy) * e, rx = 24 + 92 * e, ry = 30 + 122 * e;
+    /* em tela pequena o parágrafo comprido cobriria o espelho: encolhe e desce até caber abaixo da caixa */
+    const cb = E.el.card.hidden ? 0 : E.el.card.getBoundingClientRect().bottom / L.S;
+    const alvo = cb ? clamp((H - (cb + 18) - 24) / (2 * ry), 0.55, 1) : 1;
+    m.fit = (m.fit || 1) + (alvo - (m.fit || 1)) * 0.15;
+    rx *= m.fit; ry *= m.fit;
+    if (cb && e > 0.98) cy = Math.max(cy, cb + 18 + ry);
+    cy = Math.min(cy, H - ry - 24);
     c.save();
     c.fillStyle = 'rgba(10,6,14,' + 0.74 * e + ')'; c.fillRect(L.vx0 - 4, 0, L.vx1 - L.vx0 + 8, H);
     c.translate(cx, cy);
