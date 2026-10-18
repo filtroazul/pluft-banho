@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a1f1c">
+<title>pluft no banho</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Grandstander:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="c" aria-hidden="true"></canvas>
+<div id="grain" aria-hidden="true"></div>
+
+<main id="ui">
+  <button id="mute" type="button" aria-label="som" aria-pressed="false">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path class="spk" d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path class="wave" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="cut" d="M5 4l14 16" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+  </button>
+
+  <div id="card" class="card" hidden>
+    <span id="tag" class="tag">pluft</span>
+    <p class="line" aria-hidden="true"><span id="typed"></span><span id="rest"></span></p>
+    <p id="sr" class="sr" aria-live="polite"></p>
+    <span id="more" class="more" aria-hidden="true">toque</span>
+  </div>
+
+  <div id="hint" class="hint" hidden><span class="dot" aria-hidden="true"></span><span id="hintTxt"></span></div>
+
+  <section id="fim" class="fim" hidden>
+    <h2>missão concluída.</h2>
+    <p class="oficial"></p>
+    <p class="credito">feito com carinho por <b id="autor"></b></p>
+    <button id="again" class="btn" type="button">de novo?</button>
+  </section>
+</main>
+
+<div id="fade" class="fade" aria-hidden="true"></div>
+
+<section id="lista" class="lista" hidden>
+  <div class="papel">
+    <h2 id="listaTitulo">a lista</h2>
+    <p id="listaSub" class="lsub"></p>
+    <ol id="itens"></ol>
+    <button id="bora" class="btn btn-main" type="button">bora</button>
+  </div>
+</section>
+
+<section id="start" class="start">
+  <div class="start-in">
+    <h1 class="logo" aria-label="pluft"><span>p</span><span>l</span><span>u</span><span>f</span><span>t</span></h1>
+    <p class="logo2">no banho</p>
+    <p class="start-sub">o pluft tá no banho.</p>
+    <button id="go" class="btn btn-main" type="button">olhar</button>
+    <p class="start-note">com som, de preferência.</p>
+  </div>
+</section>
+
+<div id="giro" class="giro" aria-hidden="true"><p>gira o celular pra ficar em pé.<br>o pluft erra melhor assim.</p></div>
+
+<script src="js/config.js"></script>
+<script src="js/falas.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/rig.js"></script>
+<script src="js/sprites.js"></script>
+<script src="js/world.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/cenas-banho.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
